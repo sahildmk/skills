@@ -1,9 +1,0 @@
-{
-  "total_infeasible": 1,
-  "infeasible_scenarios": [
-    {
-      "scenarios": "Live GitHub PR interaction",
-      "reasoning": "The skill's core workflow requires authenticated GitHub API access (gh CLI), a real git repository with a PR branch, and interactive user confirmation via a chat interface. The eval sandbox has no GitHub authentication, no real repositories, and no interactive user session. All 5 feasible scenarios work around this by testing the artifacts the agent produces (scripts, plans, code, documents) rather than executing the workflow live."
-    }
-  ]
-}
