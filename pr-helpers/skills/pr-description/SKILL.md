@@ -82,9 +82,26 @@ Copy and fill:
 2. …
 ```
 
+## Title format
+
+Always use `type(scope): short description`.
+
+- **type** must be one of: `feat`, `chore`, `fix`, `refactor`
+- **scope** is the topic, feature, package, or area touched (e.g. `pr-description`, `pr-helpers`, `auth`)
+- **description** is a few words in imperative mood, lowercase, no trailing period
+
+Examples:
+
+- `feat(pr-description): add pr naming specifics`
+- `refactor(pr-helpers): combine two skills into a single plugin`
+- `fix(auth): handle expired refresh tokens`
+- `chore(deps): bump eslint to v9`
+
+Pick the type by intent: `feat` for new behavior, `fix` for bug fixes, `refactor` for behavior-preserving restructuring, `chore` for tooling, deps, configs, or housekeeping.
+
 ## Quality bar
 
-- **Title**: Imperative mood, scoped (e.g. `Add retry to checkout API`), not vague (`Fix stuff`).
+- **Title**: Follows the `type(scope): description` format above. Reject vague titles like `Fix stuff` or `WIP`.
 - **Scope**: Matches the diff; if the PR is large, say so and point to commits or areas.
 - **Sensitive changes**: Security, data, or rollout notes called out in **What changed** or **How to test**.
 
