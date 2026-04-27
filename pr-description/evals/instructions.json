@@ -1,0 +1,100 @@
+{
+  "instructions": [
+    {
+      "instruction": "Write PR descriptions so reviewers understand why the change exists, what changed, and where to look next.",
+      "original_snippets": "Write PR descriptions so reviewers understand **why** the change exists, **what** changed, and **where** to look next.",
+      "relevant_when": "Any time the user is drafting or refining a pull request description.",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Prefer plain language; avoid dumping raw diffs into prose.",
+      "original_snippets": "Prefer plain language; avoid dumping raw diffs into prose.",
+      "relevant_when": "When turning code changes into narrative for reviewers.",
+      "why_given": "preference"
+    },
+    {
+      "instruction": "Use the section order: Summary, Context, Why, What changed, Links & tracking, How to test (when applicable).",
+      "original_snippets": "Use this order. Omit a section only if it truly adds nothing (e.g. no ticket yet—say \"None\" or \"TBD\" in **Links & tracking**).",
+      "relevant_when": "Structuring the body of a PR description.",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Summary should be one short paragraph in product or technical terms stating what the PR does.",
+      "original_snippets": "### 1. Summary\n\nOne short paragraph: what this PR does in product or technical terms.",
+      "relevant_when": "Writing the opening of the PR body.",
+      "why_given": "preference"
+    },
+    {
+      "instruction": "Context explains situation and background; it must not merely repeat the diff.",
+      "original_snippets": "Background the reviewer needs... Not a repeat of the diff—explain **situation**.",
+      "relevant_when": "Explaining prior behavior and constraints before the change.",
+      "why_given": "preference"
+    },
+    {
+      "instruction": "Why states motivation: problem solved, risk reduced, or requirement met; optionally one line on tradeoffs vs alternatives.",
+      "original_snippets": "### 3. Why\n\nMotivation: problem being solved... If there was an alternative approach, one line on why this one was chosen (optional).",
+      "relevant_when": "Explaining rationale for the change.",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "What changed uses bullets grouped by area (e.g. API, UI, infra) and explicitly calls out breaking changes, migrations, or feature flags.",
+      "original_snippets": "Bullets grouped by area... Call out breaking changes, migrations, or feature flags explicitly.",
+      "relevant_when": "Listing concrete changes in the PR.",
+      "why_given": "preference"
+    },
+    {
+      "instruction": "Links & tracking includes issue/ticket identifiers, design docs or specs, and related PRs when applicable.",
+      "original_snippets": "- Issue / ticket... - Design docs, RFCs... - Related PRs (stacked or follow-ups)",
+      "relevant_when": "Connecting the PR to external tracking and related work.",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "If no ticket exists yet, say None or TBD in Links & tracking rather than omitting the section without explanation.",
+      "original_snippets": "no ticket yet—say \"None\" or \"TBD\" in **Links & tracking**",
+      "relevant_when": "There is no tracker ID for the work yet.",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "How to test provides steps or a checklist when the change can be validated; include when applicable.",
+      "original_snippets": "### 6. How to test (when applicable)\n\nSteps or checklist so a reviewer can validate behavior locally or in staging.",
+      "relevant_when": "The change is verifiable by reviewers.",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Sensitive changes (security, data, rollout) should be called out in What changed or How to test.",
+      "original_snippets": "**Sensitive changes**: Security, data, or rollout notes called out in **What changed** or **How to test**.",
+      "relevant_when": "PR touches security, PII, or deployment risk.",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "For large PRs, acknowledge scope and optionally point to commits or areas.",
+      "original_snippets": "**Scope**: Matches the diff; if the PR is large, say so and point to commits or areas.",
+      "relevant_when": "The change spans many files or subsystems.",
+      "why_given": "preference"
+    },
+    {
+      "instruction": "PR title quality: imperative mood, scoped (e.g. Add retry to checkout API), not vague (Fix stuff).",
+      "original_snippets": "**Title**: Imperative mood, scoped... not vague (`Fix stuff`).",
+      "relevant_when": "User also needs a PR title alongside the body.",
+      "why_given": "preference"
+    },
+    {
+      "instruction": "Anti-pattern: do not use only file names with no explanation as the whole description.",
+      "original_snippets": "- Only listing file names with no explanation",
+      "relevant_when": "Describing what changed.",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Anti-pattern: do not use WIP or misc fixes as the entire description.",
+      "original_snippets": "“WIP” or “misc fixes” as the whole description",
+      "relevant_when": "Draft or placeholder PR bodies.",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Anti-pattern: do not omit a ticket link when one exists.",
+      "original_snippets": "- Missing ticket link when one exists",
+      "relevant_when": "A tracker ID or URL was provided in the task context.",
+      "why_given": "reminder"
+    }
+  ]
+}

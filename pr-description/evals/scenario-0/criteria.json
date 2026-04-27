@@ -1,0 +1,56 @@
+{
+  "context": "Evaluates whether the agent structures the PR body with the skill’s section order, ties work to ENG-4421, groups changes, and adds reviewer-facing test guidance without dumping a raw diff.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Summary heading",
+      "description": "Contains a markdown heading for Summary (for example a line starting with ## Summary).",
+      "max_score": 10
+    },
+    {
+      "name": "Context heading",
+      "description": "Contains a markdown heading for Context (for example ## Context).",
+      "max_score": 10
+    },
+    {
+      "name": "Why heading",
+      "description": "Contains a markdown heading for Why (for example ## Why).",
+      "max_score": 10
+    },
+    {
+      "name": "What changed heading",
+      "description": "Contains a markdown heading for What changed (for example ## What changed).",
+      "max_score": 10
+    },
+    {
+      "name": "Links heading",
+      "description": "Contains a markdown heading for Links & tracking or equivalent wording clearly labeled as links or tracking.",
+      "max_score": 10
+    },
+    {
+      "name": "ENG-4421 referenced",
+      "description": "The Links area (or adjacent tracking lines) includes the token ENG-4421 or a clear reference to that Linear issue.",
+      "max_score": 10
+    },
+    {
+      "name": "Grouped change bullets",
+      "description": "Under What changed, uses bullet lines (lines starting with - or * or numbered list) describing changes rather than only prose with no list.",
+      "max_score": 10
+    },
+    {
+      "name": "Not a raw diff paste",
+      "description": "The file does not consist primarily of a unified diff block (for example does not begin with diff --git or ```diff as the main content).",
+      "max_score": 10
+    },
+    {
+      "name": "How to test heading",
+      "description": "Contains a markdown heading for How to test (for example ## How to test).",
+      "max_score": 10
+    },
+    {
+      "name": "Plain-language summary",
+      "description": "Under Summary, includes at least one sentence explaining what the PR achieves in words, not only headings or file paths.",
+      "max_score": 10
+    }
+  ]
+}

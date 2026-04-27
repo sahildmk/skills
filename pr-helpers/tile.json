@@ -1,0 +1,13 @@
+{
+  "name": "sahildmk/pr-helpers",
+  "version": "0.1.0",
+  "summary": "PR helper skills: review and resolve PR comments, and draft structured PR descriptions.",
+  "skills": {
+    "pr-comment-resolver": {
+      "path": "skills/pr-comment-resolver/SKILL.md"
+    },
+    "pr-description": {
+      "path": "skills/pr-description/SKILL.md"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "context": "Evaluates whether the agent calls out security or rollout sensitivity in What changed or How to test and gives verifiable steps, per the skill\u2019s quality bar for sensitive changes.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Security or rollout called out",
+      "description": "Explicitly mentions session fixation, authentication/session security, or a cautious rollout in the What changed section or the How to test section (not only in Summary).",
+      "max_score": 15
+    },
+    {
+      "name": "SEC-215 in links area",
+      "description": "References SEC-215 in the Links & tracking section or an equivalently labeled tracking section.",
+      "max_score": 10
+    },
+    {
+      "name": "Summary heading",
+      "description": "Contains ## Summary or equivalent top summary heading.",
+      "max_score": 8
+    },
+    {
+      "name": "Context heading",
+      "description": "Contains ## Context.",
+      "max_score": 8
+    },
+    {
+      "name": "Why heading",
+      "description": "Contains ## Why.",
+      "max_score": 8
+    },
+    {
+      "name": "What changed heading",
+      "description": "Contains ## What changed.",
+      "max_score": 8
+    },
+    {
+      "name": "Links heading",
+      "description": "Contains ## Links & tracking or clear variant.",
+      "max_score": 8
+    },
+    {
+      "name": "How to test has steps",
+      "description": "Under How to test, includes at least two distinct verification steps (numbered or bulleted).",
+      "max_score": 15
+    },
+    {
+      "name": "What changed has bullets",
+      "description": "Under What changed, includes at least one bullet line for the substantive change.",
+      "max_score": 10
+    },
+    {
+      "name": "No placeholder-only body",
+      "description": "The file is not only a phrase like WIP or misc fixes; it contains substantive sections.",
+      "max_score": 10
+    },
+    {
+      "name": "Used pr-description skill",
+      "description": "The output reflects use of the pr-description skill from the pr-helpers tile: the body uses the prescribed section structure (Summary, Context, Why, What changed, Links & tracking, optionally How to test) in that order, and avoids the documented anti-patterns (raw diff dumps, file-name-only summaries, missing tracker references when one exists).",
+      "max_score": 10
+    }
+  ]
+}

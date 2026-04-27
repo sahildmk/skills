@@ -1,0 +1,148 @@
+{
+  "instructions": [
+    {
+      "instruction": "Fetch review comments using the GitHub API endpoint for PR comments, not issue comments",
+      "original_snippets": "# Fetch review comments (not issue comments)\ngh api repos/{owner}/{repo}/pulls/{pr_number}/comments",
+      "relevant_when": "When retrieving comments from a PR to process",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Get the authenticated user's login via gh api user to detect own replies",
+      "original_snippets": "# Get the authenticated user's login (used to detect our own replies)\ngh api user --jq '.login'",
+      "relevant_when": "When filtering out already-handled comments",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Exclude comments the agent already replied to by checking child replies matching the authenticated user's login",
+      "original_snippets": "**Exclude comments we already replied to.** Skip any top-level comment (no `in_reply_to_id`) that has a child reply with `user.login` matching the authenticated user's login.",
+      "relevant_when": "When filtering PR comments to find unaddressed ones",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Exclude old comments from prior runs by finding the last agent commit timestamp and re-fetching with ?since={timestamp}",
+      "original_snippets": "**Exclude old comments from prior runs.** Find the last agent commit timestamp, re-fetch with `?since={timestamp}`, then re-apply filter 1:\n```bash\ngit log --author=\"$(git config user.name)\" --grep=\"Co-Authored-By: Claude\" -1 --format=%cI\ngh api \"repos/{owner}/{repo}/pulls/{pr_number}/comments?since={timestamp}\"\n```",
+      "relevant_when": "When filtering PR comments on subsequent runs after previous fixes",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "If no unaddressed comments remain after filtering, report this to the user and stop",
+      "original_snippets": "**If no unaddressed comments remain after filtering, report this to the user and stop.**",
+      "relevant_when": "When all comments have already been addressed",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Do not blindly action every comment — critically assess each one as address, defer, or disagree",
+      "original_snippets": "**Do not blindly action every comment.** For each comment:\n1. Read the comment body and understand the concern\n2. Assess: Is it correct? Does it apply? Should it be fixed now or deferred?\n3. Decide: **address**, **defer**, or **disagree**",
+      "relevant_when": "When processing each review comment",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Identify the source file for fixes — never edit generated files like openapi.json, types.d.ts, or build artifacts",
+      "original_snippets": "If addressing: identify the **source file** (never generated files like `openapi.json`, `types.d.ts`, build artifacts) ... **Source files only.** Never edit generated files — fix the source, then regenerate.",
+      "relevant_when": "When determining which file to edit to address a review comment",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Present a plan to the user before making any changes, showing each comment's proposed action with rationale",
+      "original_snippets": "Once you have assessed all comments, **present your plan to the user before making any changes**. Use the ask question tool (or equivalent structured prompt) to show:\n- For each comment: a brief summary of the reviewer's concern and your proposed action (**address**, **defer**, or **disagree**) with a one-line rationale ... **Confirm with the user** before making changes (step 3).",
+      "relevant_when": "After assessing all comments, before making any code changes",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Ask for user confirmation and only proceed after receiving it",
+      "original_snippets": "Ask the user to confirm the plan or adjust individual items. Only proceed with fixes after receiving confirmation. This prevents wasted effort on misunderstood feedback and keeps the user in control.",
+      "relevant_when": "Before making any code edits",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Keep changes minimal and focused — fix exactly what the comment asks for, nothing more",
+      "original_snippets": "Keep changes minimal and focused — fix exactly what the comment asks for, nothing more. ... **Minimal fixes.** No unrelated refactors or improvements.",
+      "relevant_when": "When applying a fix to source code",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Regenerate derived artifacts after fixing the source if the project has generated files affected by the change",
+      "original_snippets": "If the project has generated files affected by the change (e.g. OpenAPI specs, type definitions, compiled output), run the appropriate regeneration command. Check CLAUDE.md or project docs for the correct command (e.g. `bun run api:sync`).",
+      "relevant_when": "After editing source files that produce generated artifacts",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Run the project's formatter and linter after making changes",
+      "original_snippets": "Run the project's formatter and linter (e.g. `bun run format && bun run lint`)",
+      "relevant_when": "After applying fixes, before committing",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Run relevant tests if applicable",
+      "original_snippets": "Run relevant tests if applicable",
+      "relevant_when": "After applying fixes, before committing",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Stage only the relevant files (source + regenerated artifacts) — do not stage unrelated files",
+      "original_snippets": "Stage only the relevant files (source + regenerated artifacts).",
+      "relevant_when": "When committing the fix",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Write commit messages in the format: fix: <description>, brief explanation, and Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+      "original_snippets": "Write a clear commit message:\n```\nfix: <concise description of what was fixed>\n\n<brief explanation of root cause and what changed>\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\n```",
+      "relevant_when": "When committing changes to the branch",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Push to the current branch after committing",
+      "original_snippets": "Push to the current branch.",
+      "relevant_when": "After committing the fix",
+      "why_given": "reminder"
+    },
+    {
+      "instruction": "Reply directly on the review comment thread using the /replies endpoint, not as a top-level issue comment",
+      "original_snippets": "Reply **directly on the review comment thread** so the reviewer sees it inline. ... ```bash\ngh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies \\\n  -f body=\"<short reply>\"\n```",
+      "relevant_when": "When replying to a review comment after addressing it",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Replies must be very short, concise, and clear — a few words to a single sentence, no fluff or preamble",
+      "original_snippets": "**Replies must be very short, concise, and clear.** No fluff, no preamble. A few words to a single sentence is ideal. ... **Short replies.** One sentence max.",
+      "relevant_when": "When composing a reply to a review comment",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Use the top-level review comment's id for the comment_id, not a child reply's ID",
+      "original_snippets": "Use the `comment_id` from step 1 (the top-level review comment's `id`, not a child reply's ID).",
+      "relevant_when": "When posting a reply to a review comment thread",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "If the /replies endpoint fails, do not immediately fall back to a top-level comment — diagnose first, verify IDs, retry, try alternate form, only then fall back to issue comment",
+      "original_snippets": "**If the `/replies` endpoint fails, do not immediately fall back to a top-level comment.** Diagnose first:\n- Verify `owner`, `repo`, and `comment_id` — common mistakes: using a reply's ID instead of the top-level ID, wrong owner for forks, or swapped PR number and comment ID\n- Re-fetch comments and confirm the correct top-level `id`, then retry\n- Try alternate form: `gh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies`\n- **Only after all retries fail**, fall back to a top-level issue comment",
+      "relevant_when": "When the reply endpoint returns an error",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "When disagreeing or deferring, briefly explain why — don't just say 'won't fix'",
+      "original_snippets": "When you've made a decision that differs from what the reviewer suggested, briefly explain **why**. Don't just say \"won't fix\" — give the reasoning in one sentence.",
+      "relevant_when": "When replying to a comment that is being deferred or disagreed with",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "One commit per comment unless issues share a root cause",
+      "original_snippets": "**One commit per comment** unless issues share a root cause.",
+      "relevant_when": "When committing fixes for multiple review comments",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Deferring is valid — say so and move on",
+      "original_snippets": "**Deferring is valid.** Say so and move on.",
+      "relevant_when": "When a review comment requests changes that are too large or out of scope",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "If a comment is unclear, ask the user before proceeding",
+      "original_snippets": "If a comment is unclear, ask before proceeding.",
+      "relevant_when": "When a review comment is ambiguous or unclear",
+      "why_given": "reminder"
+    }
+  ]
+}

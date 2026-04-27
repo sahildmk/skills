@@ -1,0 +1,61 @@
+{
+  "context": "Tests whether the agent critically assesses each review comment rather than blindly actioning them, correctly categorizes decisions as address/defer/disagree, identifies source files vs generated files, and presents a confirmation plan to the user before proceeding.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Three decision categories",
+      "description": "assessment.json uses exactly the categories 'address', 'defer', and 'disagree' (or clear equivalents) for each comment's decision \u2014 not just 'fix' and 'skip'",
+      "max_score": 10
+    },
+    {
+      "name": "Generated file recognition",
+      "description": "For comment 2003 (on generated/types.d.ts), the assessment identifies the source file (src/schemas/user.ts or similar) as the target, NOT the generated file itself",
+      "max_score": 10
+    },
+    {
+      "name": "OpenAPI generated file",
+      "description": "For comment 2006 (on generated/openapi.json), the assessment targets the source handler or schema file, NOT generated/openapi.json",
+      "max_score": 10
+    },
+    {
+      "name": "Defer large refactor",
+      "description": "Comment 2005 (migrate entire module to new pattern) is categorized as 'defer' rather than 'address', since it requires a broader refactor beyond the PR scope",
+      "max_score": 10
+    },
+    {
+      "name": "Rationale provided",
+      "description": "Every entry in assessment.json includes a non-empty rationale field explaining the decision",
+      "max_score": 10
+    },
+    {
+      "name": "Defer/disagree reasoning",
+      "description": "decisions_log.md provides a specific reason for each deferred or disagreed comment \u2014 not just 'won't fix' or 'out of scope' without explanation",
+      "max_score": 10
+    },
+    {
+      "name": "User confirmation plan",
+      "description": "plan.md explicitly asks the user to confirm or adjust the plan before proceeding with changes",
+      "max_score": 10
+    },
+    {
+      "name": "Plan shows all comments",
+      "description": "plan.md lists ALL 6 review comments with their proposed action, not just the ones being addressed",
+      "max_score": 10
+    },
+    {
+      "name": "Critical assessment",
+      "description": "At least one comment is NOT categorized as 'address' \u2014 demonstrating critical evaluation rather than blindly fixing everything",
+      "max_score": 10
+    },
+    {
+      "name": "Source file targets only",
+      "description": "No entry in assessment.json lists a file under 'generated/' as the target_file to edit",
+      "max_score": 10
+    },
+    {
+      "name": "Used pr-comment-resolver skill",
+      "description": "The artifacts and approach reflect use of the pr-comment-resolver skill from the pr-helpers tile: comments are fetched via the pulls/{pr_number}/comments review endpoint (not issues comments), already-replied comments are filtered out by matching the agent's own login, and source files are preferred over generated files for any fixes.",
+      "max_score": 10
+    }
+  ]
+}

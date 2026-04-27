@@ -1,0 +1,61 @@
+{
+  "context": "Evaluates Links & tracking for ticket, related PR, and doc link without the task dictating exact section labels beyond normal PR needs.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "BILL-901 referenced",
+      "description": "Links or tracking section includes BILL-901 or clearly ties to that ticket.",
+      "max_score": 12
+    },
+    {
+      "name": "Related PR called out",
+      "description": "Mentions the related pull request #1847 or billing-sdk PR dependency (repository name or number).",
+      "max_score": 15
+    },
+    {
+      "name": "Design or doc link",
+      "description": "References the design note path go/billing-metering or describes linking to internal billing metering documentation.",
+      "max_score": 10
+    },
+    {
+      "name": "Summary heading",
+      "description": "Contains ## Summary.",
+      "max_score": 8
+    },
+    {
+      "name": "Context heading",
+      "description": "Contains ## Context.",
+      "max_score": 8
+    },
+    {
+      "name": "Why heading",
+      "description": "Contains ## Why.",
+      "max_score": 8
+    },
+    {
+      "name": "What changed heading",
+      "description": "Contains ## What changed.",
+      "max_score": 8
+    },
+    {
+      "name": "Links heading",
+      "description": "Contains ## Links & tracking or equivalent.",
+      "max_score": 8
+    },
+    {
+      "name": "What changed bullets",
+      "description": "What changed includes at least one bullet describing integration or metering work.",
+      "max_score": 13
+    },
+    {
+      "name": "Not file-list-only",
+      "description": "Description is not only a list of paths; Context or Summary explains the situation in sentences.",
+      "max_score": 10
+    },
+    {
+      "name": "Used pr-description skill",
+      "description": "The output reflects use of the pr-description skill from the pr-helpers tile: the body uses the prescribed section structure (Summary, Context, Why, What changed, Links & tracking, optionally How to test) in that order, and avoids the documented anti-patterns (raw diff dumps, file-name-only summaries, missing tracker references when one exists).",
+      "max_score": 10
+    }
+  ]
+}

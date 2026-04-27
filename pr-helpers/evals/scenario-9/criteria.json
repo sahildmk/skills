@@ -1,0 +1,61 @@
+{
+  "context": "Evaluates explicit None/TBD handling in Links when no ticket exists, plus core section structure.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "No ticket stated",
+      "description": "In Links & tracking (or equivalent), explicitly states there is no ticket yet using None, TBD, or an explicit sentence that no tracker ID exists.",
+      "max_score": 20
+    },
+    {
+      "name": "Summary heading",
+      "description": "Contains ## Summary.",
+      "max_score": 9
+    },
+    {
+      "name": "Context heading",
+      "description": "Contains ## Context.",
+      "max_score": 9
+    },
+    {
+      "name": "Why heading",
+      "description": "Contains ## Why.",
+      "max_score": 9
+    },
+    {
+      "name": "What changed heading",
+      "description": "Contains ## What changed.",
+      "max_score": 9
+    },
+    {
+      "name": "Links heading",
+      "description": "Contains ## Links & tracking or equivalent.",
+      "max_score": 9
+    },
+    {
+      "name": "How to test heading",
+      "description": "Contains ## How to test.",
+      "max_score": 9
+    },
+    {
+      "name": "What changed bullets",
+      "description": "What changed includes bullets mentioning devtools or the helper/protobuf-related work.",
+      "max_score": 10
+    },
+    {
+      "name": "No fake ticket ID",
+      "description": "Does not invent a plausible-looking ticket number presented as real (for example ENG-0000) unless clearly marked as placeholder.",
+      "max_score": 8
+    },
+    {
+      "name": "Plain language",
+      "description": "Avoids dumping a unified diff; uses sentences in at least Summary or Context.",
+      "max_score": 8
+    },
+    {
+      "name": "Used pr-description skill",
+      "description": "The output reflects use of the pr-description skill from the pr-helpers tile: the body uses the prescribed section structure (Summary, Context, Why, What changed, Links & tracking, optionally How to test) in that order, and avoids the documented anti-patterns (raw diff dumps, file-name-only summaries, missing tracker references when one exists).",
+      "max_score": 10
+    }
+  ]
+}

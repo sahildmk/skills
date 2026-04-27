@@ -1,0 +1,20 @@
+{
+  "total_infeasible": 3,
+  "infeasible_scenarios": [
+    {
+      "scenarios": "Live GitHub PR interaction",
+      "reasoning": "The skill's core workflow requires authenticated GitHub API access (gh CLI), a real git repository with a PR branch, and interactive user confirmation via a chat interface. The eval sandbox has no GitHub authentication, no real repositories, and no interactive user session. All 5 feasible scenarios work around this by testing the artifacts the agent produces (scripts, plans, code, documents) rather than executing the workflow live.",
+      "skill": "pr-comment-resolver"
+    },
+    {
+      "scenarios": "Live GitHub PR title validation",
+      "reasoning": "The skill\u2019s PR title guidance (imperative, scoped) is best checked on the hosting UI; the file-based eval only receives pr-body.md, not the title field, so an end-to-end title rubric is not gradable from artifacts alone.",
+      "skill": "pr-description"
+    },
+    {
+      "scenarios": "Interactive reviewer Q&A",
+      "reasoning": "Scenarios cannot include back-and-forth with reviewers or product; tasks must be one-shot with no interactive clarification.",
+      "skill": "pr-description"
+    }
+  ]
+}

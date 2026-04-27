@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent implements correct PR comment filtering logic: using the right GitHub API endpoints for review comments (not issue comments), detecting own replies via authenticated user login, excluding old comments using timestamps, and handling first-run scenarios.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Review comments endpoint",
+      "description": "fetch_comments.sh uses the pulls/{pr_number}/comments API path (not issues/{number}/comments) for fetching review comments",
+      "max_score": 10
+    },
+    {
+      "name": "Authenticated user lookup",
+      "description": "fetch_comments.sh includes a command to get the authenticated user's login (e.g. gh api user)",
+      "max_score": 10
+    },
+    {
+      "name": "Exclude self-replied",
+      "description": "comment_filter.py skips top-level comments (no in_reply_to_id) that have a child reply where user.login matches the agent's login",
+      "max_score": 10
+    },
+    {
+      "name": "Top-level only filtering",
+      "description": "The filter identifies top-level comments using in_reply_to_id being null/absent, and does not treat reply comments as separate items to address",
+      "max_score": 10
+    },
+    {
+      "name": "Agent commit timestamp",
+      "description": "fetch_comments.sh finds the last agent commit timestamp using git log with a grep for 'Co-Authored-By: Claude' or similar agent marker",
+      "max_score": 10
+    },
+    {
+      "name": "Since parameter usage",
+      "description": "fetch_comments.sh uses the ?since={timestamp} query parameter when fetching comments to exclude old comments",
+      "max_score": 10
+    },
+    {
+      "name": "First-run handling",
+      "description": "The code handles the case where no prior agent commit exists (first run) by processing all comments instead of failing",
+      "max_score": 10
+    },
+    {
+      "name": "Stop when empty",
+      "description": "The code or script includes logic to report and stop if no unaddressed comments remain after filtering",
+      "max_score": 10
+    },
+    {
+      "name": "Reply-user matching",
+      "description": "Filtering checks the user.login of reply comments against the agent's own login specifically (not just checking if any reply exists)",
+      "max_score": 10
+    },
+    {
+      "name": "Test coverage",
+      "description": "test_filter.py includes at least one test case for: a comment already replied to by the agent, a comment with only non-agent replies, and a first-run scenario",
+      "max_score": 10
+    }
+  ]
+}

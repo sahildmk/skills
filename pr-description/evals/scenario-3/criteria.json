@@ -1,0 +1,56 @@
+{
+  "context": "Evaluates large-scope acknowledgment and grouping changes by area (infra/tooling) per the skill.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Large scope acknowledged",
+      "description": "Explicitly signals broad or large change surface (for example many packages, wide migration, or many services) in Summary or Context.",
+      "max_score": 18
+    },
+    {
+      "name": "PLAT-550 referenced",
+      "description": "Links or tracking includes PLAT-550.",
+      "max_score": 10
+    },
+    {
+      "name": "Area-labeled bullets",
+      "description": "What changed groups bullets with area labels (for example bold labels like **Tooling**, **CI**, **Lint**, or section hints) or separate subheadings under What changed.",
+      "max_score": 15
+    },
+    {
+      "name": "Summary heading",
+      "description": "Contains ## Summary.",
+      "max_score": 8
+    },
+    {
+      "name": "Context heading",
+      "description": "Contains ## Context.",
+      "max_score": 8
+    },
+    {
+      "name": "Why heading",
+      "description": "Contains ## Why.",
+      "max_score": 8
+    },
+    {
+      "name": "What changed heading",
+      "description": "Contains ## What changed.",
+      "max_score": 8
+    },
+    {
+      "name": "Links heading",
+      "description": "Contains ## Links & tracking or equivalent.",
+      "max_score": 8
+    },
+    {
+      "name": "Context not diff replay",
+      "description": "Context explains why the migration is happening as a situation (tooling consistency, CI cost, etc.), not only listing file globs.",
+      "max_score": 9
+    },
+    {
+      "name": "How to test or review path",
+      "description": "Contains ## How to test OR explains how reviewers should spot-check (for example sample services to validate) under a clearly labeled section.",
+      "max_score": 8
+    }
+  ]
+}
