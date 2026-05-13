@@ -1,0 +1,56 @@
+{
+  "context": "Evaluates whether the agent produces a PR title that follows the skill's required `type(scope): description` format — using one of the allowed types (feat, fix, refactor, chore), a relevant scope, and an imperative, lowercase, period-free description — while still delivering a structured PR body.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Title file exists",
+      "description": "A file named pr-title.txt exists in the working directory and contains a single non-empty line of text.",
+      "max_score": 10
+    },
+    {
+      "name": "Type prefix present",
+      "description": "The title in pr-title.txt begins with one of the allowed conventional types followed by an opening parenthesis: feat(, fix(, refactor(, or chore(. No other prefixes (e.g. docs(, style(, build(, ci(, perf(, test(, wip:) are accepted.",
+      "max_score": 10
+    },
+    {
+      "name": "Fix type chosen",
+      "description": "Given the branch fixes a bug in refresh-token handling, the type used is fix( specifically (not feat, refactor, or chore).",
+      "max_score": 10
+    },
+    {
+      "name": "Scope present and relevant",
+      "description": "The title includes a scope inside parentheses immediately after the type, and the scope clearly relates to the auth/refresh-token area (e.g. auth, auth-refresh, refresh-token). An empty scope () or an unrelated scope fails this check.",
+      "max_score": 10
+    },
+    {
+      "name": "Colon and space separator",
+      "description": "The title uses the exact separator `): ` between the closing parenthesis of the scope and the description (close-paren, colon, single space).",
+      "max_score": 10
+    },
+    {
+      "name": "Description is imperative and lowercase",
+      "description": "The description portion (everything after `): `) is written in imperative mood (e.g. 'handle', 'add', 'detect', not 'handled', 'adds', 'fixed') and starts with a lowercase letter.",
+      "max_score": 10
+    },
+    {
+      "name": "No trailing period",
+      "description": "The title does not end with a period, exclamation mark, or other terminal punctuation.",
+      "max_score": 10
+    },
+    {
+      "name": "Title is concise",
+      "description": "The full title line is 72 characters or fewer and does not contain ticket IDs, brackets, or boilerplate like 'WIP'.",
+      "max_score": 10
+    },
+    {
+      "name": "Body still structured",
+      "description": "pr-body.md contains the required section headings in order (Summary, Context, Why, What changed, Links & tracking) and references AUTH-712 in the links/tracking area.",
+      "max_score": 10
+    },
+    {
+      "name": "Used pr-description skill",
+      "description": "The output reflects use of the pr-description skill from the pr-helpers tile: the title obeys the documented `type(scope): description` quality bar using only the allowed types (feat, fix, refactor, chore), and the body follows the prescribed section structure without anti-patterns (raw diff dumps, file-name-only summaries, missing tracker references).",
+      "max_score": 10
+    }
+  ]
+}
