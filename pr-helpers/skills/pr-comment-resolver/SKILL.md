@@ -117,8 +117,10 @@ When you've made a decision that differs from what the reviewer suggested, brief
 
 For line review comments:
 
+Prefer the PR-scoped replies endpoint; the shorter `/pulls/comments/{comment_id}/replies` form can return `404` even for a valid top-level review comment.
+
 ```bash
-gh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies \
+gh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies \
   -f body="<short reply>"
 ```
 
@@ -134,9 +136,9 @@ gh api repos/{owner}/{repo}/issues/{pr_number}/comments \
 Mention the reviewer or bot and include enough context that it is obvious which issue comment or review summary you are addressing.
 
 **If the `/replies` endpoint fails for a line review comment, do not immediately fall back to a top-level comment.** Diagnose first:
-- Verify `owner`, `repo`, and `comment_id` — common mistakes: using a reply's ID instead of the top-level ID, wrong owner for forks, or swapped PR number and comment ID
+- Verify `owner`, `repo`, `pr_number`, and `comment_id` — common mistakes: using a reply's ID instead of the top-level ID, wrong owner for forks, or swapped PR number and comment ID
 - Re-fetch comments and confirm the correct top-level `id`, then retry
-- Try alternate form: `gh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies`
+- If the PR-scoped form failed, try legacy form: `gh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies`
 - **Only after all retries fail**, fall back to a top-level issue comment:
   ```bash
   gh api repos/{owner}/{repo}/issues/{pr_number}/comments \

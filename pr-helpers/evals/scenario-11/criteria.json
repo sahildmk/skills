@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent uses the PR-scoped GitHub API endpoint for inline PR review comment replies as the primary call, treats the legacy non-PR-scoped replies endpoint only as a retry, and falls back to issue comments only after inline reply attempts fail.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Contract script exists",
+      "description": "A file named reply_endpoint_contract.sh exists and contains a function or reusable command sequence for replying to a line review comment.",
+      "max_score": 8
+    },
+    {
+      "name": "Primary PR-scoped endpoint",
+      "description": "reply_endpoint_contract.sh uses repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies as the first gh api reply attempt.",
+      "max_score": 20
+    },
+    {
+      "name": "Expected calls first line",
+      "description": "expected_calls.txt lists repos/acme/api/pulls/4794/comments/3419335254/replies as the first API call.",
+      "max_score": 15
+    },
+    {
+      "name": "Legacy endpoint is retry only",
+      "description": "The legacy repos/{owner}/{repo}/pulls/comments/{comment_id}/replies endpoint, if present, is clearly described or ordered as a retry after the PR-scoped endpoint fails, not the primary call.",
+      "max_score": 12
+    },
+    {
+      "name": "Issue fallback is last",
+      "description": "The issue comment endpoint repos/{owner}/{repo}/issues/{pr_number}/comments appears only as the final fallback after both inline reply attempts fail.",
+      "max_score": 10
+    },
+    {
+      "name": "Uses top-level comment id",
+      "description": "reply_endpoint_contract.sh or endpoint_notes.md says comment_id must be the top-level review comment id, not a child reply id.",
+      "max_score": 8
+    },
+    {
+      "name": "Failure diagnosis documented",
+      "description": "endpoint_notes.md mentions verifying owner, repo, PR number, and top-level comment_id or re-fetching comments before fallback.",
+      "max_score": 10
+    },
+    {
+      "name": "No top-level issue default",
+      "description": "The solution does not use issues/{pr_number}/comments as the default way to reply to line review comments.",
+      "max_score": 7
+    },
+    {
+      "name": "Short reply body handling",
+      "description": "The script accepts a body argument or variable and posts it with -f body=... without adding verbose boilerplate.",
+      "max_score": 5
+    },
+    {
+      "name": "Used pr-comment-resolver skill",
+      "description": "The artifacts and approach reflect use of the pr-comment-resolver skill from the pr-helpers tile: line review comments are answered inline through the PR-scoped pulls/{pr_number}/comments/{comment_id}/replies endpoint, top-level comment IDs are used, and issue comments are reserved for final fallback or non-inline feedback.",
+      "max_score": 15
+    }
+  ]
+}

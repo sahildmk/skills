@@ -44,7 +44,7 @@
     },
     {
       "name": "Reply via thread endpoint",
-      "description": "resolver.py or config.py uses the pulls/comments/{id}/replies endpoint for posting replies (not issue comments as default)",
+      "description": "resolver.py or config.py uses the PR-scoped pulls/{pr_number}/comments/{comment_id}/replies endpoint for posting line review replies (not pulls/comments/{comment_id}/replies or issue comments as default)",
       "max_score": 8
     },
     {

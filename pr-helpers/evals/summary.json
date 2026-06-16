@@ -1,5 +1,5 @@
 {
-  "total_scenarios": 11,
+  "total_scenarios": 12,
   "instructions_coverage": {
     "total_instructions": 39,
     "instructions_tested": 37,
@@ -11,7 +11,7 @@
     "preference": 19
   },
   "scenarios_by_skill": {
-    "pr-comment-resolver": 5,
+    "pr-comment-resolver": 6,
     "pr-description": 6
   }
 }

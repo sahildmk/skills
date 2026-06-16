@@ -1,10 +1,10 @@
 {
-  "context": "Tests whether the agent uses the correct GitHub API endpoint for PR comment replies (pulls/comments/{id}/replies, not issue comments), uses top-level comment IDs, implements proper failure diagnosis before fallback, formats short concise replies, and writes conventional commit messages with co-author attribution.",
+  "context": "Tests whether the agent uses the correct GitHub API endpoint for PR comment replies (pulls/{pr_number}/comments/{comment_id}/replies, not issue comments or the legacy non-PR-scoped replies endpoint), uses top-level comment IDs, implements proper failure diagnosis before fallback, formats short concise replies, and writes conventional commit messages with co-author attribution.",
   "type": "weighted_checklist",
   "checklist": [
     {
       "name": "Replies endpoint",
-      "description": "reply_to_comments.sh uses the pulls/comments/{comment_id}/replies endpoint (not issues/{number}/comments) as the primary reply method",
+      "description": "reply_to_comments.sh uses the PR-scoped pulls/{pr_number}/comments/{comment_id}/replies endpoint (not pulls/comments/{comment_id}/replies or issues/{number}/comments) as the primary reply method",
       "max_score": 10
     },
     {

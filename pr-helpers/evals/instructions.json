@@ -113,8 +113,8 @@
       "skill": "pr-comment-resolver"
     },
     {
-      "instruction": "Reply directly on the review comment thread using the /replies endpoint, not as a top-level issue comment",
-      "original_snippets": "Reply **directly on the review comment thread** so the reviewer sees it inline. ... ```bash\ngh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies \\\n  -f body=\"<short reply>\"\n```",
+      "instruction": "Reply directly on the review comment thread using the PR-scoped /pulls/{pr_number}/comments/{comment_id}/replies endpoint, not as a top-level issue comment",
+      "original_snippets": "Reply **directly on the review comment thread** so the reviewer sees it inline. Prefer the PR-scoped replies endpoint; the shorter `/pulls/comments/{comment_id}/replies` form can return `404` even for a valid top-level review comment.\n```bash\ngh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies \\\n  -f body=\"<short reply>\"\n```",
       "relevant_when": "When replying to a review comment after addressing it",
       "why_given": "new knowledge",
       "skill": "pr-comment-resolver"
@@ -134,8 +134,8 @@
       "skill": "pr-comment-resolver"
     },
     {
-      "instruction": "If the /replies endpoint fails, do not immediately fall back to a top-level comment \u2014 diagnose first, verify IDs, retry, try alternate form, only then fall back to issue comment",
-      "original_snippets": "**If the `/replies` endpoint fails, do not immediately fall back to a top-level comment.** Diagnose first:\n- Verify `owner`, `repo`, and `comment_id` \u2014 common mistakes: using a reply's ID instead of the top-level ID, wrong owner for forks, or swapped PR number and comment ID\n- Re-fetch comments and confirm the correct top-level `id`, then retry\n- Try alternate form: `gh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies`\n- **Only after all retries fail**, fall back to a top-level issue comment",
+      "instruction": "If the PR-scoped /replies endpoint fails, do not immediately fall back to a top-level comment \u2014 diagnose first, verify IDs, retry, try the legacy non-PR-scoped form, only then fall back to issue comment",
+      "original_snippets": "**If the `/replies` endpoint fails for a line review comment, do not immediately fall back to a top-level comment.** Diagnose first:\n- Verify `owner`, `repo`, `pr_number`, and `comment_id` \u2014 common mistakes: using a reply's ID instead of the top-level ID, wrong owner for forks, or swapped PR number and comment ID\n- Re-fetch comments and confirm the correct top-level `id`, then retry\n- If the PR-scoped form failed, try legacy form: `gh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies`\n- **Only after all retries fail**, fall back to a top-level issue comment",
       "relevant_when": "When the reply endpoint returns an error",
       "why_given": "new knowledge",
       "skill": "pr-comment-resolver"
